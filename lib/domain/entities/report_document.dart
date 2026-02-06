@@ -1,10 +1,10 @@
-class ReportFileEntity {
+class ReportFile {
   final int? id;
   final String serialNumber;
   final String filePath;
   final DateTime createdAt;
 
-  ReportFileEntity({
+  ReportFile({
     this.id,
     required this.serialNumber,
     required this.filePath,
