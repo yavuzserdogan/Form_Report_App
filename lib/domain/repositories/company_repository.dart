@@ -1,9 +1,9 @@
 import '../entities/company.dart';
 
 abstract class CompanyRepository {
-  Future<List<Company>> getCompanies();
+  Future<List<Company>> getCompanies(String query);
 
-  Future<void> createCompany(Company company);
+  Future<int> createCompany(Company company);
 
   Future<void> updateCompany(Company company);
 
