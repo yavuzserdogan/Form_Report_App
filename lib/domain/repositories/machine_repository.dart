@@ -1,7 +1,7 @@
 import '../entities/machine.dart';
 
 abstract class MachineRepository {
-  Future<List<Machine>> getMachines(int companyId);
+  Future<List<Machine>> getMachines(String query);
 
   Future<int> createMachine(Machine machine);
 
