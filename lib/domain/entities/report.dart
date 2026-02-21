@@ -34,6 +34,8 @@ class Report {
 
   final DateTime createdAt;
 
+  final String? customerSignaturePath;
+
   const Report({
     this.id,
     required this.technician,
@@ -50,5 +52,6 @@ class Report {
     required this.companyRepresentative,
     required this.emails,
     required this.createdAt,
+    this.customerSignaturePath,
   });
 }
