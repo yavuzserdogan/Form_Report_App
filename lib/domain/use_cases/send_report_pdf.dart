@@ -1,6 +1,7 @@
 import '../../core/errors/error_messages.dart';
 import '../entities/report_document.dart';
 import '../../core/services/report_send_service.dart';
+import '../../core/errors/network_exception.dart';
 
 class SendReportPdf {
   final ReportSendService reportSendService;
@@ -16,7 +17,7 @@ class SendReportPdf {
     if (online) {
       await reportSendService.sendPdfToEmails(document.filePath, emails);
     } else {
-      throw Exception(ErrorMessages.noInternetCannotSend);
+      throw const NetworkException(ErrorMessages.noInternetCannotSend);
     }
   }
 }
