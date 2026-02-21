@@ -1,3 +1,5 @@
+import 'package:form_report_app/core/errors/report_exception.dart';
+
 import '../../core/errors/error_messages.dart';
 import '../entities/report.dart';
 import '../repositories/report_repository.dart';
@@ -9,7 +11,7 @@ class SaveReport {
 
   Future<int> call(Report report) async {
     if (report.customerSignaturePath == null) {
-      throw Exception(ErrorMessages.reportWithoutSignature);
+      throw const ReportException(ErrorMessages.reportWithoutSignature);
     }
 
     final serialCode = report.serviceNumber.serialCode;
