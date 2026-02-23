@@ -1,11 +1,15 @@
 import '../entities/service_number.dart';
+import '../../core/errors/failure.dart';
+import 'package:dartz/dartz.dart';
 
 abstract class ServiceNumberRepository {
-  Future<ServiceNumber> getServiceNumber(String query);
+  Future<Either<Failure, ServiceNumber>> getServiceNumber(String query);
 
-  Future<int> createServiceNumber(ServiceNumber serviceNumber);
+  Future<Either<Failure, int>> createServiceNumber(ServiceNumber serviceNumber);
 
-  Future<void> updateServiceNumber(ServiceNumber serviceNumber);
+  Future<Either<Failure, Unit>> updateServiceNumber(
+    ServiceNumber serviceNumber,
+  );
 
-  Future<void> deleteServiceNumber(int serviceNumberId);
+  Future<Either<Failure, Unit>> deleteServiceNumber(int serviceNumberId);
 }
