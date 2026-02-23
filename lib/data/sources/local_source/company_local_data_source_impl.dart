@@ -1,6 +1,9 @@
+import 'package:dartz/dartz.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:form_report_app/data/models/company_model.dart';
 import 'company_local_data_source.dart';
+import '../../../core/errors/error_messages.dart';
+import '../../../core/errors/failure.dart';
 
 const String tableCompanies = 'companies';
 
@@ -10,32 +13,37 @@ class CompanyLocalDataSourceImpl implements CompanyLocalDataSource {
   CompanyLocalDataSourceImpl({required this.database});
 
   @override
-  Future<void> insertCompany(CompanyModel company) async {
+  Future<Either<Failure, Unit>> insertCompany(CompanyModel company) async {
     try {
       await database.insert(
         tableCompanies,
         company.toJson(),
-        conflictAlgorithm: ConflictAlgorithm.replace, 
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+      return const Right(unit);
+    } catch (e) {
+      return Left(CacheFailure(ErrorMessages.companyInsertError));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CompanyModel>>> getCompanies() async {
+    try {
+      final List<Map<String, dynamic>> maps = await database.query(
+        tableCompanies,
+      );
+      return Right(
+        List.generate(maps.length, (i) {
+          return CompanyModel.fromJson(maps[i]);
+        }),
       );
     } catch (e) {
-      throw Exception('Şirket eklenirken bir hata oluştu: $e');
+      return Left(CacheFailure(ErrorMessages.companyFetchError));
     }
   }
 
   @override
-  Future<List<CompanyModel>> getCompanies() async {
-    try {
-      final List<Map<String, dynamic>> maps = await database.query(tableCompanies);
-      return List.generate(maps.length, (i) {
-        return CompanyModel.fromJson(maps[i]);
-      });
-    } catch (e) {
-      throw Exception('Şirketler listelenirken bir hata oluştu: $e');
-    }
-  }
-
-  @override
-  Future<void> updateCompany(CompanyModel company) async {
+  Future<Either<Failure, Unit>> updateCompany(CompanyModel company) async {
     try {
       await database.update(
         tableCompanies,
@@ -43,21 +51,19 @@ class CompanyLocalDataSourceImpl implements CompanyLocalDataSource {
         where: 'id = ?',
         whereArgs: [company.id],
       );
+      return const Right(unit);
     } catch (e) {
-      throw Exception('Şirket güncellenirken bir hata oluştu: $e');
+      return Left(CacheFailure(ErrorMessages.companyUpdateError));
     }
   }
 
   @override
-  Future<void> deleteCompany(int id) async {
+  Future<Either<Failure, Unit>> deleteCompany(int id) async {
     try {
-      await database.delete(
-        tableCompanies,
-        where: 'id = ?',
-        whereArgs: [id],
-      );
+      await database.delete(tableCompanies, where: 'id = ?', whereArgs: [id]);
+      return const Right(unit);
     } catch (e) {
-      throw Exception('Şirket silinirken bir hata oluştu: $e');
+      return Left(CacheFailure(ErrorMessages.companyDeleteError));
     }
   }
 }
