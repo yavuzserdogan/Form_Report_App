@@ -3,4 +3,3 @@ abstract class ReportSendService {
 
   Future<void> sendPdfToEmails(String filePath, List<String> emails);
 }
-

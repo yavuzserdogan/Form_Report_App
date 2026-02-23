@@ -1,14 +1,14 @@
 import '../repositories/company_repository.dart';
 import '../entities/company.dart';
+import '../../core/errors/failure.dart';
+import 'package:dartz/dartz.dart';
 
 class GetCompaniesForAutocomplate {
   final CompanyRepository companyRepository;
 
   GetCompaniesForAutocomplate(this.companyRepository);
 
-  Future<List<Company>> call(String query) async {
+  Future<Either<Failure, List<Company>>> call(String query) async {
     return companyRepository.getCompanies(query);
   }
 }
-
-

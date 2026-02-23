@@ -1,11 +1,13 @@
 import '../entities/machine.dart';
+import '../../core/errors/failure.dart';
+import 'package:dartz/dartz.dart';
 
 abstract class MachineRepository {
-  Future<List<Machine>> getMachines(String query);
+  Future<Either<Failure, List<Machine>>> getMachines(String query);
 
-  Future<int> createMachine(Machine machine);
+  Future<Either<Failure, int>> createMachine(Machine machine);
 
-  Future<void> updateMachine(Machine machine);
+  Future<Either<Failure, Unit>> updateMachine(Machine machine);
 
-  Future<void> deleteMachine(int machineId);
+  Future<Either<Failure, Unit>> deleteMachine(int machineId);
 }
