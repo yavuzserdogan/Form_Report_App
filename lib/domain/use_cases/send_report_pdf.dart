@@ -1,7 +1,7 @@
 import '../../core/errors/error_messages.dart';
 import '../entities/report_document.dart';
 import '../../core/services/report_send_service.dart';
-import '../../core/errors/failure.dart';
+import '../../core/errors/failures.dart';
 import 'package:dartz/dartz.dart';
 
 class SendReportPdf {

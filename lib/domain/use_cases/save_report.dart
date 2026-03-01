@@ -1,7 +1,7 @@
 import '../../core/errors/error_messages.dart';
 import '../entities/report.dart';
 import '../repositories/report_repository.dart';
-import '../../core/errors/failure.dart';
+import '../../core/errors/failures.dart';
 import 'package:dartz/dartz.dart';
 
 class SaveReport {

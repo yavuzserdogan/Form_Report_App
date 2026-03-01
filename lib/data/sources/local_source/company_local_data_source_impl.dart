@@ -1,9 +1,7 @@
-import 'package:dartz/dartz.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:form_report_app/data/models/company_model.dart';
 import 'company_local_data_source.dart';
-import '../../../core/errors/error_messages.dart';
-import '../../../core/errors/failure.dart';
+import '../../../core/errors/exceptions.dart';
 
 const String tableCompanies = 'companies';
 
@@ -13,37 +11,33 @@ class CompanyLocalDataSourceImpl implements CompanyLocalDataSource {
   CompanyLocalDataSourceImpl({required this.database});
 
   @override
-  Future<Either<Failure, Unit>> insertCompany(CompanyModel company) async {
+  Future<void> insertCompany(CompanyModel company) async {
     try {
       await database.insert(
         tableCompanies,
         company.toJson(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
-      return const Right(unit);
-    } catch (e) {
-      return Left(CacheFailure(ErrorMessages.companyInsertError));
+    } on DatabaseException {
+      throw CacheException();
     }
   }
 
   @override
-  Future<Either<Failure, List<CompanyModel>>> getCompanies() async {
+  Future<List<CompanyModel>> getCompanies() async {
     try {
       final List<Map<String, dynamic>> maps = await database.query(
         tableCompanies,
       );
-      return Right(
-        List.generate(maps.length, (i) {
-          return CompanyModel.fromJson(maps[i]);
-        }),
-      );
-    } catch (e) {
-      return Left(CacheFailure(ErrorMessages.companyFetchError));
+
+      return List.generate(maps.length, (i) => CompanyModel.fromJson(maps[i]));
+    } on DatabaseException {
+      throw CacheException();
     }
   }
 
   @override
-  Future<Either<Failure, Unit>> updateCompany(CompanyModel company) async {
+  Future<void> updateCompany(CompanyModel company) async {
     try {
       await database.update(
         tableCompanies,
@@ -51,19 +45,17 @@ class CompanyLocalDataSourceImpl implements CompanyLocalDataSource {
         where: 'id = ?',
         whereArgs: [company.id],
       );
-      return const Right(unit);
-    } catch (e) {
-      return Left(CacheFailure(ErrorMessages.companyUpdateError));
+    } on DatabaseException {
+      throw CacheException();
     }
   }
 
   @override
-  Future<Either<Failure, Unit>> deleteCompany(int id) async {
+  Future<void> deleteCompany(int id) async {
     try {
       await database.delete(tableCompanies, where: 'id = ?', whereArgs: [id]);
-      return const Right(unit);
-    } catch (e) {
-      return Left(CacheFailure(ErrorMessages.companyDeleteError));
+    } on DatabaseException {
+      throw CacheException();
     }
   }
 }
