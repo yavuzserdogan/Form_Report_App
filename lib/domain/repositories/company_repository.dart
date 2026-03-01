@@ -1,5 +1,5 @@
 import '../entities/company.dart';
-import '../../core/errors/failure.dart';
+import '../../core/errors/failures.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class CompanyRepository {

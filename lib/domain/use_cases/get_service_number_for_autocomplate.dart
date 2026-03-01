@@ -1,6 +1,6 @@
 import "../repositories/service_number_repository.dart";
 import "../entities/service_number.dart";
-import "../../core/errors/failure.dart";
+import "../../core/errors/failures.dart";
 import "package:dartz/dartz.dart";
 
 class GetServiceNumberForAutocomplate {
