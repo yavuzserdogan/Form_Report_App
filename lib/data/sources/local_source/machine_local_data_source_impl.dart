@@ -11,9 +11,9 @@ class MachineLocalDataSourceImpl implements MachineLocalDataSource {
   MachineLocalDataSourceImpl({required this.database});
 
   @override
-  Future<void> insertMachine(MachineModel machine) async {
+  Future<int> insertMachine(MachineModel machine) async {
     try {
-      await database.insert(
+      return await database.insert(
         tableMachines,
         machine.toJson(),
         conflictAlgorithm: ConflictAlgorithm.replace,

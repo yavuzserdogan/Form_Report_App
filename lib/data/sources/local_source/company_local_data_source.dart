@@ -1,7 +1,7 @@
 import 'package:form_report_app/data/models/company_model.dart';
 
 abstract class CompanyLocalDataSource {
-  Future<void> insertCompany(CompanyModel company);
+  Future<int> insertCompany(CompanyModel company);
 
   Future<List<CompanyModel>> getCompanies();
 

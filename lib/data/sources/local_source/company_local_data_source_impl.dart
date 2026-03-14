@@ -11,9 +11,9 @@ class CompanyLocalDataSourceImpl implements CompanyLocalDataSource {
   CompanyLocalDataSourceImpl({required this.database});
 
   @override
-  Future<void> insertCompany(CompanyModel company) async {
+  Future<int> insertCompany(CompanyModel company) async {
     try {
-      await database.insert(
+      return await database.insert(
         tableCompanies,
         company.toJson(),
         conflictAlgorithm: ConflictAlgorithm.replace,

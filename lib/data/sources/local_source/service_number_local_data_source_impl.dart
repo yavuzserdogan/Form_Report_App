@@ -11,9 +11,9 @@ class ServiceNumberLocalDataSourceImpl implements ServiceNumberLocalDataSource {
   ServiceNumberLocalDataSourceImpl({required this.database});
 
   @override
-  Future<void> insertServiceNumber(ServiceNumberModel serviceNumber) async {
+  Future<int> insertServiceNumber(ServiceNumberModel serviceNumber) async {
     try {
-      await database.insert(
+      return await database.insert(
         tableServiceNumbers,
         serviceNumber.toJson(),
         conflictAlgorithm: ConflictAlgorithm.replace,
