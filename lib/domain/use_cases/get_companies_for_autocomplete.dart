@@ -1,6 +1,6 @@
 import '../repositories/company_repository.dart';
 import '../entities/company.dart';
-import '../../core/errors/failures.dart';
+import '../errors/failures.dart';
 import 'package:dartz/dartz.dart';
 
 class GetCompaniesForAutocomplate {

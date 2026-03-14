@@ -4,7 +4,7 @@ import '../entities/service_number.dart';
 import '../repositories/company_repository.dart';
 import '../repositories/machine_repository.dart';
 import '../repositories/service_number_repository.dart';
-import '../../core/errors/failures.dart';
+import '../errors/failures.dart';
 import 'package:dartz/dartz.dart';
 
 class CreateInventory {

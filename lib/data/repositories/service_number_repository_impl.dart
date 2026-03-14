@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import '../../core/errors/exceptions.dart';
-import '../../core/errors/failures.dart';
+import '../../domain/errors/failures.dart';
 import '../../core/errors/error_messages.dart';
 import '../../data/models/service_number_model.dart';
 import '../../data/sources/local_source/service_number_local_data_source.dart';
@@ -51,7 +51,7 @@ class ServiceNumberRepositoryImpl implements ServiceNumberRepository {
     try {
       final model = ServiceNumberModel.fromEntity(serviceNumber);
       if (model.id == null) {
-        return const Left(ValidationFailure('Güncelleme için id gerekli.'));
+        return const Left(ValidationFailure.withMessage('Güncelleme için id gerekli.'));
       }
       await _localDataSource.updateServiceNumber(model);
       return const Right(unit);

@@ -1,6 +1,6 @@
 import "../repositories/machine_repository.dart";
 import "../entities/machine.dart";
-import "../../core/errors/failures.dart";
+import '../errors/failures.dart';
 import "package:dartz/dartz.dart";
 
 class GetMachinesForAutocomplate {

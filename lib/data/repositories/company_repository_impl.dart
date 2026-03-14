@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import '../../core/errors/exceptions.dart';
 import '../../core/errors/error_messages.dart';
-import '../../core/errors/failures.dart';
+import '../../domain/errors/failures.dart';
 import '../../data/models/company_model.dart';
 import '../../data/sources/local_source/company_local_data_source.dart';
 import '../../domain/entities/company.dart';
@@ -46,7 +46,7 @@ class CompanyRepositoryImpl implements CompanyRepository {
     try {
       final model = CompanyModel.fromEntity(company);
       if (model.id == null) {
-        return const Left(ValidationFailure(ErrorMessages.companyUpdateError));
+        return const Left(ValidationFailure.withMessage(ErrorMessages.companyUpdateError));
       }
       await _localDataSource.updateCompany(model);
       return const Right(unit);

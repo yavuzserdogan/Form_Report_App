@@ -15,6 +15,13 @@ class CacheFailure extends Failure {
   const CacheFailure(super.message);
 }
 
+enum ValidationFailureCode {
+  reportWithoutSignature,
+  noInternetCannotSend,
+}
+
 class ValidationFailure extends Failure {
-  const ValidationFailure(super.message);
+  final ValidationFailureCode? code;
+  const ValidationFailure(this.code) : super('');
+  const ValidationFailure.withMessage(super.message) : code = null;
 }

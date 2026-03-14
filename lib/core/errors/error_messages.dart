@@ -1,5 +1,23 @@
+import '../../domain/errors/failures.dart';
+
 class ErrorMessages {
   ErrorMessages._();
+
+  /// Presentation: ValidationFailure.code ile mesaj almak için.
+  static String forValidation(ValidationFailureCode code) {
+    return switch (code) {
+      ValidationFailureCode.reportWithoutSignature => reportWithoutSignature,
+      ValidationFailureCode.noInternetCannotSend => noInternetCannotSend,
+    };
+  }
+
+  /// Presentation: Herhangi bir [Failure] için kullanıcıya gösterilecek mesaj.
+  static String messageFor(Failure failure) {
+    if (failure is ValidationFailure && failure.code != null) {
+      return forValidation(failure.code!);
+    }
+    return failure.message;
+  }
 
   static const String reportWithoutSignature =
       'Müşteri imzası olmadan rapor kaydedilemez.';
@@ -8,7 +26,10 @@ class ErrorMessages {
       'İnternet bağlantısı yok. Rapor gönderilemedi.';
 
   //User
-
+  static const String userImplemementError =
+      'Mevcut kullanıcı henüz implemente edilmedi.';
+  static const String userCreateError =
+      'Kullanıcı oluşturma henüz implemente edilmedi.';
 
   // Company
   static const String companyInsertError = 'Şirket eklenirken bir hata oluştu.';
@@ -46,6 +67,7 @@ class ErrorMessages {
 
   // Report
   static const String reportSaveError = 'Rapor kaydedilirken bir hata oluştu.';
-  static const String reportFetchError = 'Raporlar listelenirken bir hata oluştu.';
+  static const String reportFetchError =
+      'Raporlar listelenirken bir hata oluştu.';
   static const String reportDeleteError = 'Rapor silinirken bir hata oluştu.';
 }
