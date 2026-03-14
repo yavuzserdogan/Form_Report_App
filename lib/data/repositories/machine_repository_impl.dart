@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import '../../core/errors/exceptions.dart';
-import '../../core/errors/failures.dart';
+import '../../domain/errors/failures.dart';
 import '../../core/errors/error_messages.dart';
 import '../../data/models/machine_model.dart';
 import '../../data/sources/local_source/machine_local_data_source.dart';
@@ -46,7 +46,7 @@ class MachineRepositoryImpl implements MachineRepository {
     try {
       final model = MachineModel.fromEntity(machine);
       if (model.id == null) {
-        return const Left(ValidationFailure(ErrorMessages.machineUpdateError));
+        return const Left(ValidationFailure.withMessage(ErrorMessages.machineUpdateError));
       }
       await _localDataSource.updateMachine(model);
       return const Right(unit);

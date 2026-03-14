@@ -1,6 +1,6 @@
 import "../entities/report_document.dart";
 import "../repositories/report_repository.dart";
-import "../../core/errors/failures.dart";
+import '../errors/failures.dart';
 import "package:dartz/dartz.dart";
 
 class GetReports {

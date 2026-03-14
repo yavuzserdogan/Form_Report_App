@@ -1,7 +1,6 @@
-import '../../core/errors/error_messages.dart';
 import '../entities/report.dart';
 import '../repositories/report_repository.dart';
-import '../../core/errors/failures.dart';
+import '../errors/failures.dart';
 import 'package:dartz/dartz.dart';
 
 class SaveReport {
@@ -11,7 +10,7 @@ class SaveReport {
 
   Future<Either<Failure, int>> call(Report report) async {
     if (report.customerSignaturePath == null) {
-      return Left(ValidationFailure(ErrorMessages.reportWithoutSignature));
+      return Left(const ValidationFailure(ValidationFailureCode.reportWithoutSignature));
     }
 
     final serialCode = report.serviceNumber.serialCode;
