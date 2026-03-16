@@ -1,15 +1,16 @@
 import 'package:dartz/dartz.dart';
+import '../../core/services/network_info.dart';
 import '../../domain/errors/failures.dart';
-import '../../domain/services/report_send_service.dart';
 import '../../core/errors/error_messages.dart';
 import '../../domain/entities/report.dart';
 import '../../domain/entities/report_document.dart';
 import '../../domain/repositories/report_repository.dart';
 
 class ReportRepositoryImpl implements ReportRepository {
-  final ReportSendService _reportSendService;
+  final NetworkInfo _networkInfo;
+  final ReportRepository _reportRepository;
 
-  ReportRepositoryImpl(this._reportSendService);
+  ReportRepositoryImpl(this._networkInfo, this._reportRepository);
 
   @override
   Future<Either<Failure, int>> saveReport(
@@ -34,12 +35,14 @@ class ReportRepositoryImpl implements ReportRepository {
     ReportDocument document,
     List<String> emails,
   ) async {
-    final online = await _reportSendService.isOnline;
+    final online = await _networkInfo.isConnected;
     if (!online) {
-      return Left(const ValidationFailure(ValidationFailureCode.noInternetCannotSend));
+      return Left(
+        const ValidationFailure(ValidationFailureCode.noInternetCannotSend),
+      );
     }
     try {
-      await _reportSendService.sendPdfToEmails(document.filePath, emails);
+      await _reportRepository.sendReport(document, emails);
       return const Right(unit);
     } catch (e) {
       return Left(NetworkFailure(e.toString()));
