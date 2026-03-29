@@ -1,4 +1,5 @@
 import '../entities/report.dart';
+import '../entities/report_form_answers.dart';
 import '../repositories/report_repository.dart';
 import '../errors/failures.dart';
 import 'package:dartz/dartz.dart';
@@ -21,6 +22,7 @@ class SaveReport {
 
     final pdfFileName = '${serialCode}_${day}_${month}_$year.pdf';
 
-    return reportRepository.saveReport(report, pdfFileName);
+    final answers = ReportFormAnswers.fromReport(report);
+    return reportRepository.saveReportAnswers(answers, pdfFileName);
   }
 }
