@@ -3,7 +3,6 @@ import '../../domain/errors/failures.dart';
 class ErrorMessages {
   ErrorMessages._();
 
-  /// Presentation: ValidationFailure.code ile mesaj almak için.
   static String forValidation(ValidationFailureCode code) {
     return switch (code) {
       ValidationFailureCode.reportWithoutSignature => reportWithoutSignature,
@@ -11,7 +10,6 @@ class ErrorMessages {
     };
   }
 
-  /// Presentation: Herhangi bir [Failure] için kullanıcıya gösterilecek mesaj.
   static String messageFor(Failure failure) {
     if (failure is ValidationFailure && failure.code != null) {
       return forValidation(failure.code!);
