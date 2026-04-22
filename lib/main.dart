@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:form_report_app/core/theme/app_theme.dart';
-import 'presentation/pages/onboarding_page.dart';
+import 'presentation/pages/onboarding/onboarding_page.dart';
 
 void main() {
   runApp(const MyApp());
