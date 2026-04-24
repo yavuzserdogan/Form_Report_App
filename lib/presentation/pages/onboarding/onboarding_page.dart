@@ -32,52 +32,57 @@ class _OnboardingPageState extends State<OnboardingPage> {
         totalSteps: _totalSteps,
       ),
 
-      body: PageView(
-        controller: _pageController,
-        physics: const NeverScrollableScrollPhysics(),
-        children: const [IdentityStep(), CommunicationStep(), SignatureStep()],
+      body: SafeArea(
+        child: PageView(
+          controller: _pageController,
+          allowImplicitScrolling: true,
+          physics: const NeverScrollableScrollPhysics(),
+          children: const [
+            IdentityStep(),
+            CommunicationStep(),
+            SignatureStep(),
+          ],
+        ),
       ),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 16.0),
-          child: Row(
-            children: [
-              if (_currentStep > 1) ...[
-                Expanded(
-                  flex: 1,
-                  child: OutlinedButton(
-                    onPressed: () {
-                      _pageController.previousPage(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                      );
-                      setState(() => _currentStep--);
-                    },
-                    child: const Text(AppStrings.back),
-                  ),
-                ),
-                const SizedBox(width: AppSpacing.md),
-              ],
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 30.0),
+        child: Row(
+          children: [
+            if (_currentStep > 1) ...[
               Expanded(
-                flex: _currentStep > 1 ? 2 : 3,
-                child: ElevatedButton(
+                flex: 1,
+                child: OutlinedButton(
                   onPressed: () {
-                    if (_currentStep < 3) {
-                      _pageController.nextPage(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                      );
-                      setState(() => _currentStep++);
-                    } else {}
+                    _pageController.previousPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                    setState(() => _currentStep--);
                   },
-                  child: Text(
-                    _currentStep == 3 ? AppStrings.complete : AppStrings.next,
-                    style: Theme.of(context).textTheme.labelLarge,
-                  ),
+                  child: const Text(AppStrings.back),
                 ),
               ),
+              const SizedBox(width: AppSpacing.md),
             ],
-          ),
+            Expanded(
+              flex: _currentStep > 1 ? 2 : 3,
+              child: ElevatedButton(
+                onPressed: () {
+                  if (_currentStep < 3) {
+                    _pageController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                    setState(() => _currentStep++);
+                  } else {}
+                },
+                child: Text(
+                  _currentStep == 3 ? AppStrings.complete : AppStrings.next,
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -9,71 +9,69 @@ class SignatureStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: AppPadding.screenPadding,
-        child: Column(
-          children: [
-            Card(
-              margin: const EdgeInsets.only(top: 100.0),
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: AppRadius.largeRadius,
-                side: BorderSide(color: AppColors.border),
-              ),
-              child: Padding(
-                padding: AppPadding.cardPadding,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      AppStrings.onboardingDigitalSignature,
-                      style: Theme.of(context).textTheme.titleLarge,
+    return Padding(
+      padding: AppPadding.screenPadding,
+      child: Column(
+        children: [
+          Card(
+            margin: const EdgeInsets.only(top: 100.0),
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: AppRadius.largeRadius,
+              side: BorderSide(color: AppColors.border),
+            ),
+            child: Padding(
+              padding: AppPadding.cardPadding,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    AppStrings.onboardingDigitalSignature,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    AppStrings.onboardingDigitalSignatureDescription,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 24.0),
+                  Container(
+                    height: 300.0,
+                    decoration: BoxDecoration(
+                      color: AppColors.surface,
+                      borderRadius: AppRadius.mediumRadius,
+                      border: Border.all(color: AppColors.border),
                     ),
-                    const SizedBox(height: 8.0),
-                    Text(
-                      AppStrings.onboardingDigitalSignatureDescription,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    const SizedBox(height: 24.0),
-                    Container(
-                      height: 300.0,
-                      decoration: BoxDecoration(
-                        color: AppColors.surface,
-                        borderRadius: AppRadius.mediumRadius,
-                        border: Border.all(color: AppColors.border),
+                  ),
+                  const SizedBox(height: 24.0),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: const Text(
+                            AppStrings.onboardingSignatureClearButton,
+                          ),
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 24.0),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: const Text(
-                              AppStrings.onboardingSignatureClearButton,
-                            ),
+                      const SizedBox(width: 10.0),
+                      Expanded(
+                        flex: 1,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: const Text(
+                            AppStrings.onboardingSignatureUploadButton,
                           ),
                         ),
-                        const SizedBox(width: 10.0),
-                        Expanded(
-                          flex: 1,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: const Text(
-                              AppStrings.onboardingSignatureUploadButton,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
