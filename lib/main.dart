@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:form_report_app/core/theme/app_theme.dart';
+import 'package:form_report_app/presentation/pages/home/home_page.dart';
+import 'package:form_report_app/presentation/pages/main_layout.dart';
 import 'presentation/pages/onboarding/onboarding_page.dart';
 
 void main() {
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
 
       debugShowCheckedModeBanner: false,
-      home: const OnboardingPage(),
+      home: const MainLayout(),
     );
   }
 }

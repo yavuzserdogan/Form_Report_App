@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:form_report_app/core/strings/app_strings.dart';
 import 'package:form_report_app/core/theme/app_spacing.dart';
+import 'package:form_report_app/presentation/pages/home/home_page.dart';
 import 'package:form_report_app/presentation/pages/onboarding/steps/identity_step.dart';
 import 'package:form_report_app/presentation/pages/onboarding/steps/communication_step.dart';
 import 'package:form_report_app/presentation/pages/onboarding/steps/signature_step.dart';
@@ -74,7 +75,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       curve: Curves.easeInOut,
                     );
                     setState(() => _currentStep++);
-                  } else {}
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomePage()),
+                    );
+                  }
                 },
                 child: Text(
                   _currentStep == 3 ? AppStrings.complete : AppStrings.next,
