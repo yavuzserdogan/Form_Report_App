@@ -8,4 +8,6 @@ class AppRadius {
   static BorderRadius get mediumRadius => BorderRadius.circular(16.0);
 
   static BorderRadius get largeRadius => BorderRadius.circular(24.0);
+
+  static BorderRadius get extraLargeRadius => BorderRadius.circular(32.0);
 }
